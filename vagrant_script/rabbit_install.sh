@@ -6,7 +6,22 @@ hostname | grep -q "^n[0-9]\+"
 [ $? -eq 0 ] || exit 1
 [ $1 ] || exit 1
 [ "$1" = "false" ] && exit 0
-file="rabbitmq-server_$1-1_all.deb"
-wget "http://www.rabbitmq.com/releases/rabbitmq-server/v$1/${file}" -O "/tmp/${file}"
-dpkg -i "/tmp/${file}"
+
+OSTYPE=`grep -o -P "(?<=^ID\=).*$" /etc/os-release 2>&1`
+
+case "$OSTYPE" in
+	fedora)
+		dnf install -y rabbitmq-server
+		;;
+	ubuntu)
+		file="rabbitmq-server_$1-1_all.deb"
+		wget "http://www.rabbitmq.com/releases/rabbitmq-server/v$1/${file}" -O "/tmp/${file}"
+		dpkg -i "/tmp/${file}"
+		;;
+	*)
+		echo "Unknown Linux distribution"
+		;;
+
+esac
+
 exit $?
