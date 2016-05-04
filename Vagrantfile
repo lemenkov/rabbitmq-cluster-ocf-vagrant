@@ -50,6 +50,7 @@ end
 corosync_setup = shell_script("/vagrant/vagrant_script/conf_corosync.sh")
 rabbit_primitive_setup = shell_script("/vagrant/vagrant_script/conf_rabbit_primitive.sh")
 rabbit_ha_pol_setup = shell_script("cp /vagrant/conf/set_rabbitmq_policy.sh /tmp/rmq-ha-pol")
+os_prepare = shell_script("/vagrant/vagrant_script/conf_os_prepare.sh")
 rabbit_install = shell_script("/vagrant/vagrant_script/rabbit_install.sh", [], [RABBIT_VER])
 rabbit_conf_setup = shell_script("/vagrant/vagrant_script/conf_rabbit.sh")
 cib_cleanup = shell_script("/vagrant/vagrant_script/conf_cib_cleanup.sh")
@@ -160,7 +161,7 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  COMMON_TASKS = [corosync_setup, rabbit_install, rabbit_ocf_setup, rabbit_primitive_setup,
+  COMMON_TASKS = [os_prepare, corosync_setup, rabbit_install, rabbit_ocf_setup, rabbit_primitive_setup,
                   rabbit_ha_pol_setup, rabbit_conf_setup, rabbit_env_setup, cib_cleanup]
 
   config.vm.define "n1", primary: true do |config|
