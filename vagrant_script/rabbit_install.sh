@@ -1,6 +1,4 @@
 #!/bin/sh
-# Install the rabbitmq-server package of a given version ($1),
-# if requested.
 # Protect from an incident running on hosts which aren't n1, n2, etc.
 ! [[ `hostname` =~ ^n[0-9]+$ ]] && exit 1
 
@@ -14,6 +12,8 @@ case "$OSTYPE" in
 		dnf install -y rabbitmq-server
 		;;
 	ubuntu)
+		# Install the rabbitmq-server package of a given version ($1),
+		# if requested.
 		file="rabbitmq-server_$1-1_all.deb"
 		wget "http://www.rabbitmq.com/releases/rabbitmq-server/v$1/${file}" -O "/tmp/${file}"
 		dpkg -i "/tmp/${file}"
