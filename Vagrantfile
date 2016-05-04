@@ -51,8 +51,7 @@ corosync_setup = shell_script("/vagrant/vagrant_script/conf_corosync.sh")
 rabbit_primitive_setup = shell_script("/vagrant/vagrant_script/conf_rabbit_primitive.sh")
 rabbit_ha_pol_setup = shell_script("cp /vagrant/conf/set_rabbitmq_policy.sh /tmp/rmq-ha-pol")
 rabbit_install = shell_script("/vagrant/vagrant_script/rabbit_install.sh", [], [RABBIT_VER])
-rabbit_conf_setup = shell_script("cp /vagrant/conf/rabbitmq.config /etc/rabbitmq/")
-rabbit_env_setup = shell_script("cp /vagrant/conf/rabbitmq-env.conf /etc/rabbitmq/")
+rabbit_conf_setup = shell_script("/vagrant/vagrant_script/conf_rabbit.sh")
 cib_cleanup = shell_script("/vagrant/vagrant_script/conf_cib_cleanup.sh")
 
 # FIXME(bogdando) remove rendering rabbitmq OCF script setup after v3.5.7 released

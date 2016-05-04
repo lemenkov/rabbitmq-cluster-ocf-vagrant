@@ -1,0 +1,25 @@
+[
+  {rabbit, [
+    {tcp_listen_options,
+         [binary,
+         {packet,        raw},
+         {reuseaddr,     true},
+         {backlog,       128},
+         {nodelay,       true},
+         {exit_on_close, false},
+         {keepalive, true}]
+    },
+    {cluster_partition_handling, pause_minority},
+    {default_user, <<"guest">>},
+    {default_pass, <<"guest">>}
+  ]},
+  {kernel, [
+    {inet_dist_listen_max, 35672},
+    {inet_dist_listen_min, 35672}
+  ]},
+  {rabbitmq_management, [
+    {listener, [
+      {port, 15672}
+    ]}
+  ]}
+].
